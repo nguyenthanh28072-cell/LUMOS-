@@ -1,0 +1,33 @@
+[
+  {
+    "id": "ENR-1787152748339",
+    "name": "Wizard Tester",
+    "email": "tester@hogwarts.edu",
+    "selectedGuild": "transfiguration",
+    "guildTitle": "transfiguration",
+    "skill": "Frontend & Shaders",
+    "timestamp": "2026-08-19T15:19:06.134Z"
+  },
+  {
+    "id": "ENR-1787200970558",
+    "fullName": "Nguyễn Thị Thanh",
+    "studentId": "202419096",
+    "className": "MI2 - 01 K69",
+    "selectedDepartments": [
+      "hoc-tap-nckh",
+      "to-chuc-kiem-tra",
+      "tuyen-truyen-doi-ngoai",
+      "van-nghe-the-thao"
+    ],
+    "departmentTitles": [
+      "Mảng Học tập và Nghiên cứu khoa học - Ravenclaw",
+      "Mảng Tổ chức kiểm tra - Gryffindor",
+      "Mảng Thông tin tuyên truyền và đối ngoại - Slytherin",
+      "Mảng Văn nghệ thể thao - Hufflepuff"
+    ],
+    "understandingReason": "JJJSFHDB",
+    "strengthsWeaknesses": "DCJJD",
+    "messageToLcd": "DKJFKDF",
+    "timestamp": "2026-08-20T04:42:49.403Z"
+  }
+]
