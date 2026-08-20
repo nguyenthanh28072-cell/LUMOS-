@@ -2438,6 +2438,207 @@ button { font: inherit; }
   border-left-color: #0284c7 !important;
 }
 
+/* =====================================================
+   ADMIN LOGIN GATE
+   ===================================================== */
+
+.admin-login-gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 30%, #071321 0%, #020306 100%);
+  padding: 2rem;
+}
+
+.admin-login-card {
+  background: linear-gradient(145deg, rgba(15, 25, 45, 0.95), rgba(5, 10, 25, 0.98));
+  border: 1px solid rgba(142, 218, 255, 0.15);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow:
+    0 0 60px rgba(142, 218, 255, 0.06),
+    0 25px 80px rgba(0, 0, 0, 0.5);
+  animation: loginCardAppear 0.6s ease-out;
+}
+
+@keyframes loginCardAppear {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-login-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.admin-login-title {
+  font-family: "Cinzel", serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.admin-login-subtitle {
+  font-size: 1rem;
+  color: rgba(247, 251, 255, 0.5);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.admin-password-input {
+  width: 100%;
+  padding: 0.9rem 3rem 0.9rem 1.2rem;
+  background: rgba(142, 218, 255, 0.05);
+  border: 1.5px solid rgba(142, 218, 255, 0.2);
+  border-radius: 12px;
+  color: var(--white);
+  font-size: 1.05rem;
+  font-family: "Cormorant Garamond", serif;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.admin-password-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 20px rgba(142, 218, 255, 0.15);
+}
+
+.admin-password-input.has-error {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.15);
+  animation: shakeInput 0.4s ease;
+}
+
+@keyframes shakeInput {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-4px); }
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.toggle-password-btn:hover {
+  opacity: 1;
+}
+
+.admin-login-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.admin-login-btn {
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, rgba(142, 218, 255, 0.15), rgba(142, 218, 255, 0.05));
+  border: 1.5px solid var(--blue);
+  border-radius: 12px;
+  color: var(--blue);
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-login-btn:hover {
+  background: linear-gradient(135deg, rgba(142, 218, 255, 0.25), rgba(142, 218, 255, 0.1));
+  box-shadow: 0 0 25px rgba(142, 218, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.admin-login-hint {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: rgba(247, 251, 255, 0.3);
+  font-style: italic;
+}
+
+/* Logout Button */
+.admin-logout-btn {
+  padding: 0.45rem 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-family: "Cinzel", serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-logout-btn:hover {
+  background: rgba(255, 107, 107, 0.2);
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.15);
+}
+
+/* Light theme overrides for login */
+[data-theme="light"] .admin-login-gate {
+  background: radial-gradient(ellipse at 50% 30%, #e0f2fe, #f0f9ff) !important;
+}
+
+[data-theme="light"] .admin-login-card {
+  background: white !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .admin-login-title {
+  color: #0369a1 !important;
+}
+
+[data-theme="light"] .admin-login-subtitle {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .admin-password-input {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .admin-login-btn {
+  color: #0369a1 !important;
+  border-color: #0369a1 !important;
+}
+
 
 
 
