@@ -20,13 +20,45 @@ interface EnrollmentItem {
   timestamp: string;
 }
 
+const ADMIN_PASSWORD = "0baitoannao0giaiduoc";
+
 export default function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const [data, setData] = useState<EnrollmentItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastSyncTime, setLastSyncTime] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDeptFilter, setSelectedDeptFilter] = useState("all");
   const [selectedItem, setSelectedItem] = useState<EnrollmentItem | null>(null);
+
+  // Check sessionStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = sessionStorage.getItem("lumos_admin_auth");
+      if (saved === "true") setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === ADMIN_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordError(false);
+      sessionStorage.setItem("lumos_admin_auth", "true");
+    } else {
+      setPasswordError(true);
+      setPasswordInput("");
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem("lumos_admin_auth");
+  };
 
   const fetchData = async (showLoading = true) => {
     if (showLoading) setLoading(true);
@@ -46,6 +78,7 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     fetchData(true);
 
     // Auto-update every 5 seconds for new submissions
@@ -54,7 +87,7 @@ export default function AdminPage() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]);
 
   const filteredData = data.filter((item) => {
     const name = (item.fullName || item.name || "").toLowerCase();
@@ -115,6 +148,46 @@ export default function AdminPage() {
     document.body.removeChild(link);
   };
 
+  if (!isAuthenticated) {
+    return (
+      <main className="lumos-page admin-page-wrapper">
+        <div className="admin-login-gate">
+          <div className="admin-login-card">
+            <div className="admin-login-icon">🔒</div>
+            <h2 className="admin-login-title">KÊNH QUẢN TRỊ LUMOS</h2>
+            <p className="admin-login-subtitle">Nhập mật khẩu để truy cập bảng điều khiển</p>
+            <form onSubmit={handleLogin} className="admin-login-form">
+              <div className="admin-password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className={`admin-password-input ${passwordError ? "has-error" : ""}`}
+                  placeholder="Nhập mật khẩu..."
+                  value={passwordInput}
+                  onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(false); }}
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
+              {passwordError && (
+                <p className="admin-login-error">⚠️ Sai mật khẩu. Vui lòng thử lại!</p>
+              )}
+              <button type="submit" className="admin-login-btn">
+                ĐĂNG NHẬP ✦
+              </button>
+            </form>
+            <p className="admin-login-hint">Liên hệ Ban Quản Trị để lấy mật khẩu</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="lumos-page admin-page-wrapper">
       <header className="lumos-header">
@@ -138,6 +211,9 @@ export default function AdminPage() {
           </button>
           <button className="enroll-nav-btn" onClick={exportToCSV} title="Xuất dữ liệu Excel">
             <span>XUẤT EXCEL / CSV</span> 📥
+          </button>
+          <button className="admin-logout-btn" onClick={handleLogout} title="Đăng xuất">
+            🔓 ĐĂNG XUẤT
           </button>
         </div>
       </header>
@@ -339,3 +415,4 @@ export default function AdminPage() {
     </main>
   );
 }
+
